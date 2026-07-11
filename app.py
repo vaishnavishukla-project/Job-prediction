@@ -5,27 +5,27 @@ import pickle
 model = pickle.load(open("model.pkl", "rb"))
 encoders = pickle.load(open("encoders.pkl", "rb"))
 
-data = pd.read_csv("job_prediction .csv")
+df = pd.read_csv("dataset9000.csv")
 
-st.title("CAREER PREDICTION")
-st.write("Enter STUDENT DETAILS:")
+st.title("Alumni Career Prediction System")
+st.write("Enter the student details below")
 
-stu = {}
+student = {}
 
-for col in data.columns:
-    if col != "ROLE":
-        stu[col] = st.selectbox(col, list(encoders[col].classes_))
+for col in df.columns:
+    if col != "Role":
+        student[col] = st.selectbox(col, list(encoders[col].classes_))
 
-if st.button("PREDICT"):
+if st.button("Predict Role"):
 
-    input_data = pd.DataFrame([stu])
+    input_df = pd.DataFrame([student])
 
-    for col in input_data.columns:
-        input_data[col] = encoders[col].transform(input_data[col])
+    for col in input_df.columns:
+        input_df[col] = encoders[col].transform(input_df[col])
 
-    prediction = model.predict(input_data)
+    prediction = model.predict(input_df)
 
-    role = encoders["ROLE"].inverse_transform(prediction)
+    role = encoders["Role"].inverse_transform(prediction)
 
-    st.success("PREDICTED CAREER")
+    st.success("Predicted Career Role")
     st.write(role[0])
