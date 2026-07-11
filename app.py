@@ -5,7 +5,7 @@ import pickle
 model = pickle.load(open("model.pkl", "rb"))
 encoders = pickle.load(open("encoders.pkl", "rb"))
 
-df = pd.read_csv("dataset9000.csv")
+df = pd.read_csv("job_prediction .csv")
 
 st.title("Alumni Career Prediction System")
 st.write("Enter the student details below")
